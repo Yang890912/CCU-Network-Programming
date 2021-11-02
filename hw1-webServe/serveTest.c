@@ -175,7 +175,8 @@ int main()
     */
     bzero(&servaddr, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    //servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     servaddr.sin_port = htons(80);
 
     printf("Binding socket to local address...\n");
@@ -196,7 +197,7 @@ int main()
 
         if ((childpid = fork()) == 0) //子程序處理就好
         {
-            int r = read(connfd, rebuff, BUFF_SIZE);
+            int r = recv(connfd, rebuff, BUFF_SIZE, 0);
             //printf("%d\n", r);
 
             if (strncmp("GET /", rebuff, 5) == 0)
@@ -211,6 +212,8 @@ int main()
                 printf("Request : %s\n", path);
 
                 response_req(connfd, path);
+
+                printf("Response : %s\n", path);
             }
             else if (strncmp("POST /", rebuff, 6) == 0) //針對post request做處理
             {
@@ -254,7 +257,7 @@ int main()
                     printf("Saved file type: text/plain\n");
                     printf("Saved file length: %d\n", length);
 
-                    char *end = strstr(content, "------");
+                    char *end = strstr(content, "------"); //Bound
                     *end = '\0';
 
                     FILE *fp = fopen("page/text.txt", "w+");
