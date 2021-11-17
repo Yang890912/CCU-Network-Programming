@@ -1,0 +1,2 @@
+It is test txt file!
+345
