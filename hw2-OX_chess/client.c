@@ -167,7 +167,7 @@ int main(int argc, char **argv)
 
     printf("Please enter username : ");
     scanf("%s", username);
-    printf("Hello %s \nWelcome to this game~\n", username);
+    printf("[Welocme] Hello %s \n[Welocme] Welcome to this game\r\n", username);
     print_instr();
 
     // username## <instruction>

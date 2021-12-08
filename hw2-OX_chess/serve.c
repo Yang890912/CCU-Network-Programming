@@ -409,7 +409,7 @@ void manage_client(void *n)
                 printf("%s accept the invitation\n", opponent);
                 printf("Game start : %s vs %s\n", member_name, opponent);
                 // printf("Waiting...\n");
-                sleep(2); // 不能太快 下面的send會影響到 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                sleep(2); // 停一下不能太快 否則下面的send會影響到 會有bug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 // Remind
                 send(client[id], msg_startgame, strlen(msg_startgame), 0);
                 send(client[opidx], msg_startgame, strlen(msg_startgame), 0);
