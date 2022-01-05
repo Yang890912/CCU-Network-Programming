@@ -151,6 +151,24 @@ int main(int argc, char **argv)
                 printf("| %23s | %23s | %23d | %23d |\n", ip_src, ip_dst, sport, dport);
                 printf("+-------------------------+-------------------------+-------------------------+-------------------------+\n");
             }
+            else
+            {
+                unsigned int sport, dport;
+                udp_hdr = (struct udphdr *)(content + ETHER_HDR_LEN + ip_hdr->ip_hl * 4); // packet_conent+14+ip_hdr_len*4 可以得到UDP的header的地址
+                sport = ntohs(udp_hdr->uh_sport);
+                dport = ntohs(udp_hdr->uh_dport);
+
+                printf("+-------------------------+-------------------------+\n");
+                printf("|     Ethernet type       |         Protocol        |\n");
+                printf("+-------------------------+-------------------------+\n");
+                printf("|          IP             |           %d            |\n", ip_hdr->ip_p);
+                printf("+-------------------------+-------------------------+\n");
+                printf("+-------------------------+-------------------------+\n");
+                printf("|   IP Source address     | IP Destination address  |\n");
+                printf("+-------------------------+-------------------------+\n");
+                printf("| %23s | %23s |\n", ip_src, ip_dst);
+                printf("+-------------------------+-------------------------+\n");
+            }
         }
         else if (type == ETHERTYPE_IPV6) // IPv6
         {
